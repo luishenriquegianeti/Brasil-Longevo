@@ -20,7 +20,7 @@ const InputArea = styled.div`
 `;
 
 const Input = styled.input`
-  width: 180px;
+  width: 520px;
   padding: 0 10px;
   border: 1px solid #bbb;
   border-radius: 5px;
@@ -37,6 +37,7 @@ const Button = styled.button`
   background-color: #2c73d2;
   color: white;
   height: 42px;
+  width: 1090px;
 `;
 
 const Form = ({ getUsers, onEdit, setOnEdit }) => {
@@ -46,10 +47,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     if (onEdit) {
       const user = ref.current;
 
-      user.nome.value = onEdit.Nome;
-      user.categoria.value = onEdit.Categoria;
-      user.descricao.value = onEdit.Descricao;
-      user.estoque.value = onEdit.Estoque;
+      user.Nome.value = onEdit.Nome;
+      user.Categoria.value = onEdit.Categoria;
+      user.Descricao.value = onEdit.Descricao;
+      user.Estoque.value = onEdit.Estoque;
     }
   }, [onEdit]);
 
@@ -59,10 +60,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     const user = ref.current;
 
     if (
-      !user.nome.value ||
-      !user.categoria.value ||
-      !user.descricao.value ||
-      !user.estoque.value
+      !user.Nome.value ||
+      !user.Categoria.value ||
+      !user.Descricao.value ||
+      !user.Estoque.value
     ) {
       return toast.warn("Preencha todos os campos!");
     }
@@ -72,10 +73,10 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         .put(
           "http://localhost:8800/" + onEdit.idMedicamentos,
           {
-            Nome: user.nome.value,
-            Categoria: user.categoria.value,
-            Descricao: user.descricao.value,
-            Estoque: user.estoque.value,
+            Nome: user.Nome.value,
+            Categoria: user.Categoria.value,
+            Descricao: user.Descricao.value,
+            Estoque: user.Estoque.value,
           }
         )
         .then(({ data }) => toast.success(data))
@@ -84,19 +85,19 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     } else {
       await axios
         .post("http://localhost:8800", {
-          Nome: user.nome.value,
-          Categoria: user.categoria.value,
-          Descricao: user.descricao.value,
-          Estoque: user.estoque.value,
+          Nome: user.Nome.value,
+          Categoria: user.Categoria.value,
+          Descricao: user.Descricao.value,
+          Estoque: user.Estoque.value,
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
 
-    user.nome.value = "";
-    user.categoria.value = "";
-    user.descricao.value = "";
-    user.estoque.value = "";
+    user.Nome.value = "";
+    user.Categoria.value = "";
+    user.Descricao.value = "";
+    user.Estoque.value = "";
 
     setOnEdit(null);
     getUsers();
@@ -106,22 +107,22 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
         <Label>Nome</Label>
-        <Input name="nome" />
+        <Input name="Nome" />
       </InputArea>
 
       <InputArea>
         <Label>Categoria</Label>
-        <Input name="categoria" />
+        <Input name="Categoria" />
       </InputArea>
 
       <InputArea>
         <Label>Descrição</Label>
-        <Input name="descricao" />
+        <Input name="Descricao" />
       </InputArea>
 
       <InputArea>
         <Label>Estoque</Label>
-        <Input name="estoque" type="number" />
+        <Input name="Estoque" type="number" />
       </InputArea>
 
       <Button type="submit">SALVAR</Button>

@@ -10,8 +10,8 @@ const Table = styled.table`
   padding: 20px;
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
-  max-width: 1120px;
-  margin: 20px auto;
+  max-width: 100%;
+  margin: 10 auto;
   word-break: break-all;
 `;
 
@@ -22,13 +22,11 @@ export const Tbody = styled.tbody``;
 export const Tr = styled.tr``;
 
 export const Th = styled.th`
-  text-align: start;
+  text-align: center;
   border-bottom: inset;
   padding-bottom: 5px;
 
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
+  
 `;
 
 export const Td = styled.td`
@@ -45,11 +43,11 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
     setOnEdit(item);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (idMedicamentos) => {
     await axios
-      .delete("http://localhost:8800/" + id)
+      .delete("http://localhost:8800/" + idMedicamentos)
       .then(({ data }) => {
-        const newArray = users.filter((user) => user.id !== id);
+        const newArray = users.filter((user) => user.idMedicamentos !== idMedicamentos);
 
         setUsers(newArray);
         toast.success(data);
@@ -66,7 +64,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
           <Th>Nome</Th>
           <Th>Categoria</Th>
           <Th>Descricão</Th>
-          <th>Estoque</th>
+          <Th>Estoque</Th>
           <Th></Th>
           <Th></Th>
         </Tr>
@@ -74,15 +72,15 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
       <Tbody>
         {users.map((item, i) => (
           <Tr key={i}>
-            <Td width="20%">{item.nome}</Td>
-            <Td width="20%">{item.categoria}</Td>
-            <Td width="20%">{item.descricao}</Td>
-            <Td width="20%">{item.estoque}</Td>
-            <Td alignCenter width="5%">
+            <Td width="20%">{item.Nome}</Td>
+            <Td width="20%">{item.Categoria}</Td>
+            <Td width="20%">{item.Descricao}</Td>
+            <Td alignCenter width="20%">{item.Estoque}</Td>
+            <Td alignCenter width="10%">
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
-            <Td alignCenter width="5%">
-              <FaTrash onClick={() => handleDelete(item.id)} />
+            <Td alignCenter width="10%">
+              <FaTrash onClick={() => handleDelete(item.idMedicamentos)} />
             </Td>
           </Tr>
         ))}
