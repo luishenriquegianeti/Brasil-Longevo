@@ -25,8 +25,6 @@ export const Th = styled.th`
   text-align: center;
   border-bottom: inset;
   padding-bottom: 5px;
-
-  
 `;
 
 export const Td = styled.td`
@@ -47,7 +45,9 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
     await axios
       .delete("http://localhost:8800/" + idMedicamentos)
       .then(({ data }) => {
-        const newArray = users.filter((user) => user.idMedicamentos !== idMedicamentos);
+        const newArray = users.filter(
+          (user) => user.idMedicamentos !== idMedicamentos,
+        );
 
         setUsers(newArray);
         toast.success(data);
@@ -75,7 +75,9 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
             <Td width="20%">{item.Nome}</Td>
             <Td width="20%">{item.Categoria}</Td>
             <Td width="20%">{item.Descricao}</Td>
-            <Td alignCenter width="20%">{item.Estoque}</Td>
+            <Td alignCenter width="20%">
+              {item.Estoque}
+            </Td>
             <Td alignCenter width="10%">
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>

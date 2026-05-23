@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-
-
 const Table = styled.table`
   width: 100%;
   background-color: #fff;
@@ -27,18 +25,13 @@ export const Th = styled.th`
   padding-bottom: 5px;
 `;
 
-
 export const Td = styled.td`
   padding-top: 15px;
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
   width: ${(props) => (props.width ? props.width : "auto")};
 `;
 
-const GridControle = ({
-  controles,
-  setControles,
-  setOnEdit,
-}) => {
+const GridControle = ({ controles, setControles, setOnEdit }) => {
   const handleEdit = (item) => {
     setOnEdit(item);
   };
@@ -48,7 +41,7 @@ const GridControle = ({
       .delete("http://localhost:8800/controle/" + id)
       .then(({ data }) => {
         const newArray = controles.filter(
-          (controle) => controle.idControlePacientes !== id
+          (controle) => controle.idControlePacientes !== id,
         );
         setControles(newArray);
         toast.success(data);
@@ -78,12 +71,24 @@ const GridControle = ({
           <Tr key={i}>
             <Td width="15%">{item.Pacientes}</Td>
             <Td width="15%">{item.Medicamentos}</Td>
-            <Td alignCenter width="10%">{item.Horario1}</Td>
-            <Td alignCenter width="10%">{item.Tomou1 ? "Sim" : "Não"}</Td>
-            <Td alignCenter width="10%">{item.Horario2}</Td>
-            <Td alignCenter width="10%">{item.Tomou2 ? "Sim" : "Não"}</Td>
-            <Td alignCenter width="10%">{item.Horario3}</Td>
-            <Td alignCenter width="10%">{item.Tomou3 ? "Sim" : "Não"}</Td>
+            <Td alignCenter width="10%">
+              {item.Horario1}
+            </Td>
+            <Td alignCenter width="10%">
+              {item.Tomou1 ? "Sim" : "Não"}
+            </Td>
+            <Td alignCenter width="10%">
+              {item.Horario2}
+            </Td>
+            <Td alignCenter width="10%">
+              {item.Tomou2 ? "Sim" : "Não"}
+            </Td>
+            <Td alignCenter width="10%">
+              {item.Horario3}
+            </Td>
+            <Td alignCenter width="10%">
+              {item.Tomou3 ? "Sim" : "Não"}
+            </Td>
             <Td alignCenter width="5%">
               <FaEdit onClick={() => handleEdit(item)} />
             </Td>
@@ -94,9 +99,6 @@ const GridControle = ({
         ))}
       </Tbody>
     </Table>
-    
-    
-
   );
 };
 
